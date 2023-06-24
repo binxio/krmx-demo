@@ -1,0 +1,16 @@
+{
+  "name": "krmx-demo-2-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec \"ts-node server.ts\" server.ts"
+  },
+  "author": "Simon Karman",
+  "license": "ISC",
+  "dependencies": {
+    "@krmx/server": "^0.1.8",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.1.3"
+  }
+}
