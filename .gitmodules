@@ -1,0 +1,3 @@
+[submodule "slides/presentation-templates"]
+	path = slides/presentation-templates
+	url = git@github.com:xebia/presentation-templates.git
