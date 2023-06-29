@@ -1,5 +1,4 @@
 # Develop a Game with WebSockets in TypeScript
-
 Demo for the XKE session on 'Develop a Game with WebSockets in TypeScript'.
 
 Build a simple game using a TypeScript NodeJS backend and a Typescript React frontend using the krmx library. Krmx is a custom WebSocket protocol specifically build for multiplayer game development with NodeJS backends and React frontends.
@@ -32,5 +31,5 @@ npm install
 npm run dev
 ```
 
-## Author
-Created by [Simon Karman](https://www.simonkarman.nl/). If you have any questions, feedback, or want to file a bug report then please create an [issue](https://github.com/binxio/krmx-demo/issues)!
+## Issues
+If you have any questions, feedback, or want to file a bug report then please create a ticket here: [krmx-demo/issues](https://github.com/binxio/krmx-demo/issues)! You can also contact the original author: [Simon Karman](https://www.simonkarman.nl/). 
