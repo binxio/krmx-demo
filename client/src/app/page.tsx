@@ -2,7 +2,7 @@
 
 export default function Home() {
   return <main>
-    <h1 className='border-b px-4 py-2'>My First Krmx Game!</h1>
+    <h1 className='border-b px-4 py-2 text-lg font-bold'>My First Krmx Game!</h1>
     <div className='px-4 py-2'>
       <MyApp />
     </div>
@@ -32,12 +32,15 @@ function MyComponent() {
   }
   if (!isLinked) {
     // Your logic for linking your connection with a user goes here
-    return (
-      <>
-        <button className='border px-2 py-1 rounded' onClick={() => link('simon')}>Join as simon!</button>
-        {rejectionReason && <p className='text-red-800'>Rejected: {rejectionReason}</p>}
-      </>
-    );
+    return (<>
+      <h2 className='mb-1'>Join server as</h2>
+      <div className='flex gap-2 mb-1'>
+        {['david', 'hernani', 'koen', 'sander', 'simon', '!nv@liD'].map(name => (
+          <button key={name} className='border px-2 py-1 rounded' onClick={() => link(name)}>{name}</button>
+        ))}
+      </div>
+      {rejectionReason && <p className='text-red-800'>Rejected: {rejectionReason}</p>}
+    </>);
   }
   // Your logic for when you're ready to go goes here
   return (
@@ -45,8 +48,10 @@ function MyComponent() {
       <p className='mb-1'>
         Welcome <strong>{username}</strong>!
       </p>
-      <button className='border px-2 py-1 rounded' onClick={() => send({ type: 'custom/hello' })}>Send custom/hello</button>
-      <button className='border px-2 py-1 rounded' onClick={leave}>Leave</button>
+      <div className='flex gap-2'>
+        <button className='border px-2 py-1 rounded' onClick={() => send({ type: 'custom/hello' })}>Send custom/hello</button>
+        <button className='border px-2 py-1 rounded' onClick={leave}>Leave</button>
+      </div>
       <h2 className='mt-2 mb-1'>Users</h2>
       <ul>
         {Object.entries(users)
