@@ -96,13 +96,14 @@ wss.on('connection', function connection(ws) {
 
 # Why isn't plain WebSocket good enough?
 
-- API is based on single client to server connection
+- WebSocket API is based on single client to server connection
+  - While... server should know which other clients are available
   - While... clients should know which other clients are connected
-  - While... server should know which clients are connected
-- WebSocket connection can be interrupted
-  - While... we want to wait for a client to reconnect
-- No features
-  - While... we want basic game feature immediately
+- A WebSocket connection can be interrupted
+  - While... we want to allow a client to reconnect
+- WebSocket API has no addons
+  - While... we want basic user features
+  - While... we want custom features
 
 ## ==> `krmx` to the rescue!
 
@@ -118,12 +119,88 @@ wss.on('connection', function connection(ws) {
 
 ---
 
-# Connections vs Users
-TODO, fix this slide and add an image.
+# Event Emitters
+Events are emitted on key moments and are streamlined on server and client side.
 
-- Linking vs Unlinking
-- Authentication
-- ...
+<img src='/krmx-events.png' class="h-100" />
+
+---
+
+# Event Structure
+All events have a type and payload.
+
+<div class="flex gap-15">
+<div class="flex flex-col gap-10">
+
+```json
+{
+  "type": "user/joined",
+  "payload": {
+    "username": "simon"
+  }
+}
+```
+
+```json
+{
+  "type": "user/linked",
+  "payload": {
+    "username": "simon"
+  }
+}
+```
+
+</div>
+<div class="flex flex-col gap-10">
+
+```json
+{
+  "type": "user/rejected",
+  "payload": {
+    "reason": "invalid link request"
+  }
+}
+```
+
+```json {none|all}
+{
+  "type": "dungeon/monster",
+  "payload": {
+    "level": 6,
+    "type": "dragon"
+  }
+}
+```
+
+</div>
+<div class="flex flex-col gap-10">
+
+```json {none|all}
+{
+  "type": "dice/roll",
+  "payload": {
+    "value": 4
+  }
+}
+```
+
+```json {none|all}
+{
+  "type": "card/played",
+  "payload": {
+    "rank": "King",
+    "suit": "Hearts"
+  }
+}
+```
+</div>
+</div>
+
+<style>
+pre.slidev-code {
+ @apply border;
+}
+</style>
 
 ---
 
@@ -158,24 +235,23 @@ touch server.ts
 </div>
 <div>
 
-```typescript {none|1-2|4-5|6-10|11-13|14|all}
+```typescript {none|1-2|4-5|6-8|9-11|12|all}
 // server/server.ts (https://www.npmjs.com/package/@krmx/server)
 import { createServer, Props } from '@krmx/server';
 
 const props: Props = { /* configure here */ }
 const server = createServer(props);
-server.on('authenticate', (username, isNewUser, reject) => {
-  if (isNewUser && server.getUsers().length > 4) {
-    reject('server is full');
-  }
+server.on('join', (username) => {
+  console.debug(`[debug] [my-app] ${username} joined!`);
 });
 server.on('message', (username, message) => {
-  console.debug(`[my-krmx-demo] ${username} sent ${message.type}`);
+  console.debug(`[debug] [my-app] ${username} sent ${message.type}`);
 });
 server.listen(8082);
+// now start with npm run dev!
 ```
 
-```bash {none|all}
+```bash {none|1-3|4-5|all}
 # client
 cd ..
 npx create-next-app client --npm --ts --src-dir --eslint
@@ -183,17 +259,60 @@ cd client
 npm install @krmx/client
 # follow instruction on
 # https://www.npmjs.com/package/@krmx/client
+# > add default export to MyApp
+# now run npm run dev
 ```
 
 </div>
 </div>
 
 ---
+
+# Basic Example
+
+<div class="flex gap-10 mb-15">
+<div>
+
+<img src='/krmx-basic-example-client.png' class="h-12" />
+
+</div>
+<div>
+
+<img src='/krmx-basic-example-server.png' class="h-30" />
+
+</div>
+</div>
+
+### Quick Start
+
+```bash
+git clone https://github.com/binxio/krmx-demo
+cd krmx-demo && cat README.md
+```
+
+---
+
+# Using Redux
+Attach incoming events to a Redux store.
+
+```typescript {all|none}
+// Build in store
+const { Krmx } = KrmxProviderWithStore();
+```
+
+```typescript {none|all}
+// Redux store
+// TODO!
+```
+
+---
 layout: center
 class: text-center
 ---
 
-# Quick start!
+# More information
+Quick start and Documentation
+
 ```bash
 git clone https://github.com/binxio/krmx-demo
 cd krmx-demo && cat README.md
