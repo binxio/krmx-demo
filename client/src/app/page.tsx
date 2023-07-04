@@ -1,16 +1,21 @@
 "use client";
 
+import { AppState, useAppDispatch } from '@/app/store';
+import { KrmxProvider, useKrmx } from '@krmx/client';
+import React, { useState } from 'react';
+import { Provider } from 'react-redux';
+import { store } from '@/app/store';
+
 export default function Home() {
   return <main>
     <h1 className='border-b px-4 py-2 text-lg font-bold'>My First Krmx Game!</h1>
     <div className='px-4 py-2'>
-      <MyApp />
+      <Provider store={store}>
+        <MyApp />
+      </Provider>
     </div>
   </main>
 };
-import {AppState, useAppDispatch} from '@/app/store';
-import {KrmxProvider, useKrmx} from '@krmx/client';
-import {useState} from 'react';
 
 function MyApp() {
   const [serverUrl] = useState('ws://localhost:8082');
@@ -36,7 +41,7 @@ function MyComponent() {
     return (<>
       <h2 className='mb-1'>Join server as</h2>
       <div className='flex gap-2 mb-1'>
-        {['david', 'hernani', 'koen', 'sander', 'simon', '!nv@liD'].map(name => (
+        {['david', 'hernani', 'jan', 'joel', 'peter', 'sander', 'simon', '!nv@liD'].map(name => (
           <button key={name} className='border px-2 py-1 rounded' onClick={() => link(name)}>{name}</button>
         ))}
       </div>

@@ -96,16 +96,16 @@ wss.on('connection', function connection(ws) {
 
 # Why isn't plain WebSocket good enough?
 
-- WebSocket API is based on single client to server connection
+- **WebSocket API is based on single client to server connection**
   - While... server should know which other clients are available
   - While... clients should know which other clients are connected
-- A WebSocket connection can be interrupted
+
+- **A WebSocket connection can be interrupted**
   - While... we want to allow a client to reconnect
-- WebSocket API has no addons
+
+- **WebSocket API has no addons**
   - While... we want basic user features
   - While... we want custom features
-
-## ==> `krmx` to the rescue!
 
 ---
 
@@ -114,7 +114,7 @@ wss.on('connection', function connection(ws) {
 
 ---
 
-# krmx - Multiple Clients
+# krmx - Architecture
 <img src='/krmx-multiple-clients.png' class='h-100' />
 
 ---
@@ -337,6 +337,16 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 <div>
 
 ```typescript {none|all}
+import { Provider } from 'react-redux';
+import { store } from '@/app/store';
+export default function Home() {
+  return <Provider store={store}>
+            <MyApp />
+          </Provider>;
+};
+```
+
+```typescript {none|all}
 import { KrmxProvider } from '@krmx/client';
 import { AppState, useAppDispatch } from '@/app/store';
 
@@ -347,8 +357,7 @@ function MyApp() {
     <KrmxProvider
       serverUrl={serverUrl}
       onMessage={dispatch}
-      krmxStateSelector={(state: AppState) => state.krmx}
-    >
+      krmxStateSelector={(state: AppState) => state.krmx}>
       <MyComponent/>
     </KrmxProvider>
   );
