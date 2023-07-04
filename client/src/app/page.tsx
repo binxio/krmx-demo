@@ -8,20 +8,21 @@ export default function Home() {
     </div>
   </main>
 };
-import {KrmxProviderWithStore, useKrmx} from '@krmx/client';
+import {AppState, useAppDispatch} from '@/app/store';
+import {KrmxProvider, useKrmx} from '@krmx/client';
 import {useState} from 'react';
-
-const { Krmx } = KrmxProviderWithStore();
 
 function MyApp() {
   const [serverUrl] = useState('ws://localhost:8082');
+  const dispatch = useAppDispatch();
   return (
-    <Krmx
+    <KrmxProvider
       serverUrl={serverUrl}
-      onMessage={(message) => console.info(message)}
+      onMessage={dispatch}
+      krmxStateSelector={(state: AppState) => state.krmx}
     >
       <MyComponent/>
-    </Krmx>
+    </KrmxProvider>
   );
 }
 function MyComponent() {

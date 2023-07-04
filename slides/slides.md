@@ -204,7 +204,7 @@ pre.slidev-code {
 
 ---
 
-# Getting started
+# Getting Started - Project & Server
 
 <div class="flex">
 <div class="border-r">
@@ -251,26 +251,36 @@ server.listen(8082);
 // now start with npm run dev!
 ```
 
+</div>
+</div>
+
+---
+
+# Getting Started - Client
+
 ```bash {none|1-3|4-5|all}
 # client
 cd ..
 npx create-next-app client --npm --ts --src-dir --eslint
 cd client
 npm install @krmx/client
-# follow instruction on
-# https://www.npmjs.com/package/@krmx/client
-# > add default export to MyApp
-# now run npm run dev
 ```
 
-</div>
-</div>
+```markdown {none|1-2|all}
+Following instructions
+1. Copy example from https://www.npmjs.com/package/@krmx/client to `src/page.tsx`
+2. Add `"use client";` to top of `src/page.tsx`
+3. Add `default export` to MyApp in `src/page.tsx`
+4. Run `npm run dev` in `client/`
+```
+
 
 ---
 
-# Basic Example
+# Getting Started - Result
+Now it should look a little something like this.
 
-<div class="flex gap-10 mb-15">
+<div class="flex gap-10 my-15">
 <div>
 
 <img src='/krmx-basic-example-client.png' class="h-12" />
@@ -295,27 +305,82 @@ cd krmx-demo && cat README.md
 # Using Redux
 Attach incoming events to a Redux store.
 
-```typescript {all|none}
-// Build in store
-const { Krmx } = KrmxProviderWithStore();
+<div class="flex">
+<div class="border-r">
+
+```bash {none|all}
+cd client
+npm install @reduxjs/toolkit react-redux
 ```
 
 ```typescript {none|all}
-// Redux store
-// TODO!
+import { krmxSlice } from '@krmx/client';
+import { configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector
+} from 'react-redux';
+
+export const store = configureStore({
+  reducer: {
+    krmx: krmxSlice.reducer,
+    // are your custom slice(s) here...
+  },
+});
+
+export type AppState = ReturnType<typeof store.getState>;
+export const useAppSelector: TypedUseSelectorHook<AppState>
+        = useSelector;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 ```
+
+</div>
+<div>
+
+```typescript {none|all}
+import { KrmxProvider } from '@krmx/client';
+import { AppState, useAppDispatch } from '@/app/store';
+
+function MyApp() {
+  const [serverUrl] = useState('ws://localhost:8082');
+  const dispatch = useAppDispatch();
+  return (
+    <KrmxProvider
+      serverUrl={serverUrl}
+      onMessage={dispatch}
+      krmxStateSelector={(state: AppState) => state.krmx}
+    >
+      <MyComponent/>
+    </KrmxProvider>
+  );
+}
+```
+
+</div>
+</div>
 
 ---
 layout: center
 class: text-center
 ---
 
-# More information
-Quick start and Documentation
+# Questions?
+It's a wrap!
+
+<div class="border mb-2 pt-2 px-2">
+
+## Quick Start
 
 ```bash
 git clone https://github.com/binxio/krmx-demo
 cd krmx-demo && cat README.md
 ```
+</div>
 
-[@krmx/server on npm](https://www.npmjs.com/package/@krmx/server) · [@krmx/client on npm](https://www.npmjs.com/package/@krmx/client) · [GitHub](https://github.com/simonkarman/ancient/tree/main/krmx) · [Author](https://www.simonkarman.nl/)
+<div class="border mb-10 pt-2 px-2">
+
+## Documentation
+[@krmx/server on npm](https://www.npmjs.com/package/@krmx/server) · [@krmx/client on npm](https://www.npmjs.com/package/@krmx/client) · [ancient/krmx at GitHub](https://github.com/simonkarman/ancient/tree/main/krmx)
+
+</div>
+
+## Thank you for joining!
