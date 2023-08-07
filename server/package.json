@@ -9,7 +9,7 @@
   "author": "Simon Karman",
   "license": "ISC",
   "dependencies": {
-    "@krmx/server": "^0.2.1",
+    "@krmx/server": "^0.2.2",
     "nodemon": "^2.0.22",
     "typescript": "^5.1.3"
   }
