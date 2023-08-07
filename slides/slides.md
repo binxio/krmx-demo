@@ -37,7 +37,7 @@ class: text-center
 
 # Showcase
 ```md
-Visit [http://172.168.0.2:3000]
+Visit [http://172.16.205.50:3000]
 ```
 
 ---
@@ -219,7 +219,8 @@ git init
 mkdir server
 cd server
 npm init -y
-npm install @krmx/server typescript nodemon ts-node
+npm install @krmx/server nodemon
+npm install ts-node @types/node typescript
 touch server.ts
 ```
 
@@ -268,9 +269,9 @@ npm install @krmx/client
 
 ```markdown {none|1-2|all}
 Following instructions
-1. Copy example from https://www.npmjs.com/package/@krmx/client to `src/page.tsx`
-2. Add `"use client";` to top of `src/page.tsx`
-3. Add `default export` to MyApp in `src/page.tsx`
+1. Copy example from https://www.npmjs.com/package/@krmx/client to `src/app/page.tsx`
+2. Add `"use client";` to top of `src/app/page.tsx`
+3. Add `export default` to MyApp in `src/app/page.tsx`
 4. Run `npm run dev` in `client/`
 ```
 
@@ -314,6 +315,7 @@ npm install @reduxjs/toolkit react-redux
 ```
 
 ```typescript {none|all}
+// src/app/store.ts
 import { krmxSlice } from '@krmx/client';
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector
@@ -337,6 +339,7 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 <div>
 
 ```typescript {none|all}
+// scr/app/page.tsx
 import { Provider } from 'react-redux';
 import { store } from '@/app/store';
 export default function Home() {
@@ -388,7 +391,7 @@ cd krmx-demo && cat README.md
 <div class="border mb-10 pt-2 px-2">
 
 ## Documentation
-[@krmx/server on npm](https://www.npmjs.com/package/@krmx/server) · [@krmx/client on npm](https://www.npmjs.com/package/@krmx/client) · [ancient/krmx at GitHub](https://github.com/simonkarman/ancient/tree/main/krmx)
+[@krmx/server on npm](https://www.npmjs.com/package/@krmx/server) · [@krmx/client on npm](https://www.npmjs.com/package/@krmx/client) · [krmx documentation](https://simonkarman.github.io/krmx) · [krmx at GitHub](https://github.com/simonkarman/krmx)
 
 </div>
 

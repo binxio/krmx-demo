@@ -4,7 +4,7 @@ Demo for the XKE session on 'Develop a Game with WebSockets in TypeScript'.
 Build a simple game using a TypeScript NodeJS backend and a Typescript React frontend using the krmx library. Krmx is a custom WebSocket protocol specifically build for multiplayer game development with NodeJS backends and React frontends.
 
 ## Resources
-[@krmx/server on npm](https://www.npmjs.com/package/@krmx/server) · [@krmx/client on npm](https://www.npmjs.com/package/@krmx/client) · [krmx at GitHub](https://github.com/simonkarman/ancient/tree/main/krmx)
+[@krmx/server on npm](https://www.npmjs.com/package/@krmx/server) · [@krmx/client on npm](https://www.npmjs.com/package/@krmx/client) · [krmx documentation](https://simonkarman.github.io/krmx) · [krmx at GitHub](https://github.com/simonkarman/krmx)
 
 ## Getting started
 This section explains how to get started with using this repository.
